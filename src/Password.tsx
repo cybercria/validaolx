@@ -1,11 +1,25 @@
 import { useNavigate } from "react-router-dom";
 import olxLogo from "./assets/olx.svg";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { supabase } from "./config/supabaseClient";
 
 function Password() {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({});
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      const { data, error } = await supabase.from("users").select("*");
+
+      if (error) {
+        console.log(error);
+      }
+      if (data) {
+        console.log("fetch db", data);
+      }
+    };
+	fetchUser();
+  }, []);
 
   const onSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -13,16 +27,17 @@ function Password() {
       ...formData,
     };
 
+    const { data, error } = await supabase
+      .from("users")
+      .insert([dataToSubmit]);
 
-	const {data, error} =  await supabase.from("users").insert([{ email: 'test2@gmail.com', password: '123456'}]);
-
-	if (error) {
-		console.log(error);
-	}
-	if (data) {
-		console.log('supadata', data);
-		console.log(dataToSubmit);
-	}
+    if (error) {
+      console.log(error);
+    }
+    if (data) {
+      console.log("supadata", data);
+      console.log(dataToSubmit);
+    }
   };
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -73,7 +88,7 @@ function Password() {
                   type="password"
                   name="password"
                   onChange={handleChange}
-                  className="w-full rounded-lg px-4 py-3 mt-2 border border-gray-300 bg-inherit"
+                  className="focus:bg-transparent w-full rounded-lg px-4 py-3 mt-2 border border-gray-300 bg-inherit"
                 />
               </div>
               <button

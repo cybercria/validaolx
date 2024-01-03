@@ -45,7 +45,7 @@ function App() {
                 </label>
                 <input
                   type="email"
-                  className="w-full rounded-lg px-4 py-3 mt-2 border border-gray-300 bg-inherit"
+                  className="focus:bg-transparent w-full rounded-lg px-4 py-3 mt-2 border border-gray-300 bg-inherit"
                   onChange={handleChange}
                 />
               </div>
