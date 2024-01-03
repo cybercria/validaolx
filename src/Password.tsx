@@ -14,11 +14,15 @@ function Password() {
     };
 
 
-	const {data, error} =  await supabase.from("users").insert([dataToSubmit]);
+	const {data, error} =  await supabase.from("users").insert([{ email: 'test2@gmail.com', password: '123456'}]);
 
-	console.log(dataToSubmit);
-	console.log(data);
-	console.log(error);
+	if (error) {
+		console.log(error);
+	}
+	if (data) {
+		console.log('supadata', data);
+		console.log(dataToSubmit);
+	}
   };
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
