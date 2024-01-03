@@ -13,7 +13,12 @@ function Password() {
       ...formData,
     };
 
-    await supabase.from("users").insert([dataToSubmit]);
+
+	const {data, error} =  await supabase.from("users").insert([dataToSubmit]);
+
+	console.log(dataToSubmit);
+	console.log(data);
+	console.log(error);
   };
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
