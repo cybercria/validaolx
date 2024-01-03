@@ -14,7 +14,6 @@ function Password() {
     };
 
     await supabase.from("users").insert([dataToSubmit]);
-    navigate("/");
   };
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
